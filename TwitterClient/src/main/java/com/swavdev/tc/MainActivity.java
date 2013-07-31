@@ -2,6 +2,8 @@ package com.swavdev.tc;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
+
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ListView;
 import com.swavdev.tc.model.Entry;
@@ -28,6 +30,9 @@ public class MainActivity extends TwitterActivity {
      */
     @Override
     protected void onBound() {
+        Log.i(TAG,"onBound");
+
+        mService.acquireAccess(null,new Handler());
         mAdapter = new SimpleTwitterAdapter(this, mList);
         final SimpleTwitterAdapter adapter = new SimpleTwitterAdapter(this, new ArrayList<Entry>());
         mListView.setAdapter(adapter);

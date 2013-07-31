@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:swavdev="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <ImageView android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:scaleType="fitXY"
-               android:src="@drawable/hexo"/>
+               android:src="@drawable/background"/>
+
+    <com.swavdev.tc.SVGPicture
+            android:layout_width="250dip"
+            android:id="@+id/logo"
+            android:layout_height="250dip"
+            android:layout_centerInParent="true"
+            swavdev:svg="@raw/logo"
+            android:layerType="software"/>
     <TextView
         android:id="@+id/welcome"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/logo"
         android:textAlignment="center"
         android:padding="10dip"
         android:layout_margin="30dip"
         android:background="#88000000"
         android:text="@string/welcome_text"/>
-   
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_submit"
-        android:layout_below="@id/welcome"
-        android:layout_centerHorizontal="true"
-         />
 
 </RelativeLayout>

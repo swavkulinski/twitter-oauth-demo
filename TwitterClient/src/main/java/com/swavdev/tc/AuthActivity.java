@@ -55,8 +55,8 @@ public class AuthActivity extends TwitterActivity {
 
         } else {
             setContentView(R.layout.auth_view);
-            Button submitButton = (Button) findViewById(R.id.submit);
-            submitButton.setOnClickListener(new OnClickListener() {
+            View logo = findViewById(R.id.logo);
+            logo.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
                     if (mBound) {
                         mService.requestAccess();

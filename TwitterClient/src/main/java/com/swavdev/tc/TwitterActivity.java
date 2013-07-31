@@ -26,7 +26,10 @@ abstract class TwitterActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Bind to LocalService
+        bindTwitterService();
+    }
+
+    private void bindTwitterService() {
         Intent intent = new Intent(this, TwitterService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
