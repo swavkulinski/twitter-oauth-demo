@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:13.0.+'
+    compile 'org.twitter4j:twitter4j-core:3.0.+'
+    compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
+    compile 'oauth.signpost:signpost-core:1.2.1.2'
+    /*
+    compile files ('/libs/twitter4j-core-3.0.3.jar')
+    compile files ('/libs/signpost-core-1.2.1.2.jar')
+    compile files ('/libs/signpost-commonshttp4-1.2.1.2.jar')
+
+    */
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.0.0"
+	
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 16
+		buildConfig += "public static final String CONSUMER_KEY = $consumerKey;\n"
+		buildConfig += "public static final String CONSUMER_SECRET = $consumerSecret;\n"
+    }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TwitterClient/TwitterClient.iml" filepath="$PROJECT_DIR$/TwitterClient/TwitterClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/twitter-client.iml" filepath="$PROJECT_DIR$/twitter-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/twitter-oauth-demo.iml" filepath="$PROJECT_DIR$/twitter-oauth-demo.iml" />
+    </modules>
+  </component>
+</project>
+
