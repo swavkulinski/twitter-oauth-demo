@@ -32,7 +32,7 @@ abstract class TwitterEntryManager {
     protected List<Entry> doFetch(String screenName) {
         try {
             Paging paging = new Paging();
-            paging.setCount(1);
+            paging.setCount(20);
             ResponseList<Status> responseList = mTwitter.getUserTimeline(screenName, paging);
             List<Entry> result = new ArrayList<Entry>();
             for (Status s : responseList) {

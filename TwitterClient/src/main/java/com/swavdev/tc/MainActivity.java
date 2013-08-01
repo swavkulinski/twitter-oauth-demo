@@ -5,7 +5,9 @@ import java.util.concurrent.Executors;
 
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.SearchView;
 import com.swavdev.tc.model.Entry;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,6 +37,7 @@ public class MainActivity extends TwitterActivity {
         mService.acquireAccess(null,new Handler());
         mAdapter = new SimpleTwitterAdapter(this, mList);
         final SimpleTwitterAdapter adapter = new SimpleTwitterAdapter(this, new ArrayList<Entry>());
+        mListView.setAdapter(null);
         mListView.setAdapter(adapter);
         mTwitterEntryManager = new TwitterEntryManager(
                 mService.getTwitter(),
@@ -46,6 +49,7 @@ public class MainActivity extends TwitterActivity {
                 if (entries == null) {
                     Log.e(TAG, "Entry is null");
                 } else {
+                    adapter.clear();
                     adapter.addAll(entries);
                     adapter.notifyDataSetChanged();
                 }
@@ -53,7 +57,6 @@ public class MainActivity extends TwitterActivity {
             }
         };
 
-        bootstrap();
 
     }
 
@@ -68,6 +71,23 @@ public class MainActivity extends TwitterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         mListView = (ListView) findViewById(R.id.mListView);
+        SearchView searchView = (SearchView) getLayoutInflater().inflate(R.layout.search_view, null);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(query.startsWith("@")){
+                    query = query.substring(1);
+                }
+                mTwitterEntryManager.fetchEntry(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        mListView.addHeaderView(searchView);
     }
 
     @Override
@@ -76,14 +96,5 @@ public class MainActivity extends TwitterActivity {
         return true;
     }
 
-    /**
-     * invokes fetching tweets from users specified in R.array.feeds list
-     */
-    private void bootstrap() {
-        String[] list = getResources().getStringArray(R.array.feeds);
-        for (int i = 0; i < list.length; i++) {
-            mTwitterEntryManager.fetchEntry(list[i]);
-        }
-    }
 
 }
