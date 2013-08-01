@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -21,6 +22,8 @@ public class MainActivity extends TwitterActivity {
     SimpleTwitterAdapter mAdapter;
     private static final String TAG = MainActivity.class.getSimpleName();
     final ArrayList<Entry> mList = new ArrayList<Entry>();
+    private static final String SEARCH_FIELD_EXTRA = MainActivity.class.getCanonicalName() + "SEARCH_FIELD_EXTRA";
+    private String mLastSearch;
 
     TwitterEntryManager mTwitterEntryManager;
 
@@ -56,8 +59,15 @@ public class MainActivity extends TwitterActivity {
 
             }
         };
+        if(!TextUtils.isEmpty(mLastSearch)){
+            mTwitterEntryManager.fetchEntry(mLastSearch);
+        }
 
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle bundle){
+        bundle.putString(SEARCH_FIELD_EXTRA,mLastSearch);
     }
 
     @Override
@@ -69,6 +79,9 @@ public class MainActivity extends TwitterActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            mLastSearch = savedInstanceState.getString(SEARCH_FIELD_EXTRA);
+        }
         setContentView(R.layout.main_activity);
         mListView = (ListView) findViewById(R.id.mListView);
         SearchView searchView = (SearchView) getLayoutInflater().inflate(R.layout.search_view, null);
@@ -78,6 +91,7 @@ public class MainActivity extends TwitterActivity {
                 if(query.startsWith("@")){
                     query = query.substring(1);
                 }
+                mLastSearch = query;
                 mTwitterEntryManager.fetchEntry(query);
                 return true;
             }
