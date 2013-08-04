@@ -29,11 +29,23 @@ dependencies {
 android {
     compileSdkVersion 18
     buildToolsVersion "18.0.0"
-	
+	signingConfigs {
+		releaseConfig {
+			storeFile file( filename )
+				storePassword password
+				keyAlias keyalias
+				keyPassword keypassword
+		}
+	}
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 16
 		buildConfig += "public static final String CONSUMER_KEY = $consumerKey;\n"
 		buildConfig += "public static final String CONSUMER_SECRET = $consumerSecret;\n"
     }
+	buildTypes {
+		release {
+			signingConfig signingConfigs.releaseConfig
+		}	
+	}
 }

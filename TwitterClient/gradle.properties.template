@@ -1,2 +1,6 @@
 consumerKey="<your twitter app consumer key>"
 consumerSecret="<yout twitter app consumer secret>"
+filename=<your keystore>.keystore
+password=<keystore password>
+keyalias=<key name>
+keypassword=<key password>
